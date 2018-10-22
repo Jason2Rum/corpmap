@@ -5,8 +5,8 @@
 	<meta charset="utf-8">
 	<title>企业信息族谱分析-查询结果</title>
 	<link rel="stylesheet" href="assets/bootstrap/bootstrap.min.css">
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 	<style type="text/css">
 		td
@@ -47,8 +47,8 @@
             var searchData = {keyword: searchKeyword};
             if (graphId != null && graphId != "") {
                 searchURL = "search-graphid";
-				searchData = {graphId: graphId};
-			}
+                searchData = {graphId: graphId};
+            }
             //加载搜索结果
             var corp_template = $("#corp-template");
             $.ajax({
@@ -63,7 +63,14 @@
 
                         var corp = corp_template.clone();
                         corp.children(".company_name").attr("href", "info.html?graphId="+data[i].graphId+"&name="+data[i].name);
-                        corp.children(".company_name").text(data[i].name);
+                        // var irgs = data[i].irgOpts;
+                        // if(!irgs){
+                        //     corp.children(".company_name").text(data[i].name + "【该公司被列入经营异常名录】");
+                        // }
+                        // else{
+                        //     corp.children(".company_name").text(data[i].name);
+                        // }
+                        corp.find(".company_name").text(format(data[i].name));
                         corp.find(".type").text("公司类型：" + format(data[i].type));
                         corp.find(".reg_auth").text("注册机关：" + format(data[i].reg_auth));
                         corp.find(".id").text("统一社会信用代码：" + format(data[i].id));

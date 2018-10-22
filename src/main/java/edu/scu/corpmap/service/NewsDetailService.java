@@ -38,10 +38,14 @@ public class NewsDetailService {
      * @return
      */
     public List<NewsDetailPreview> getAllNewsDetailPreview(int offset, int limit) {
+
         NewsDetailExample newsDetailExample = new NewsDetailExample();
+        NewsDetailExample.Criteria  criteria= newsDetailExample.createCriteria();
+        criteria.andPreviewImageIsNotNull();
         newsDetailExample.setOrderByClause("time DESC");
         newsDetailExample.setOffset(offset);
         newsDetailExample.setLimit(limit);
+
         List<NewsDetail> newsDetailList = newsDetailMapper.selectByExampleUsingLimit(newsDetailExample);
         List<NewsDetailPreview> newsDetailPreviewList = NewsDetailPreview.constructFromNewsDetailList(newsDetailList);
         return newsDetailPreviewList;

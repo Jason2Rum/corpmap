@@ -99,6 +99,7 @@ public class CorpService {
                     briefCorp.setId(node.getProperty("id").toString());
                     briefCorp.setState(node.getProperty("state","在营").toString());
                     briefCorp.setReg_capt((node.getProperty("reg_capt","100.00万人民币").toString()));
+                  //  briefCorp.setIrgOpts((node.getProperty("irg_opts","").toString()));
                 } catch (NotFoundException e) {
                     continue; //有的企业为边缘节点，即，只有名字，没有其他信息
                 }
@@ -118,7 +119,7 @@ public class CorpService {
                 String capt1 = o1.getReg_capt().toString();
                 String capt2 = o2.getReg_capt().toString();
                 if(capt1.equals("******")) capt1 = "50万人民币";
-                if(capt2.equals("******")) capt2="50万人民币";
+                if(capt2.equals("******")) capt2 = "50万人民币";
                 double a = Double.parseDouble(capt1.substring(0,capt1.length()-4));
                 double b = Double.parseDouble(capt2.substring(0,capt2.length()-4));
                 if(a>b)  return -1;
@@ -249,6 +250,12 @@ public class CorpService {
         return corp;
     }
 
+    /**
+     * 根据图id返回一个
+     *
+     * @param graphId 图底层id
+     * @return 图对象
+     */
     @Transactional
     public Graph constructGraph(long graphId,int req){
         TraversalDescription traversalDescription;
@@ -276,7 +283,7 @@ public class CorpService {
                     traversalDescription =
                             graphDatabaseService.traversalDescription().
                                     relationships(MyRelationship.合伙人,Direction.BOTH)
-                                    .relationships(MyRelationship.股东,Direction.BOTH)
+                                    .relationships(MyRelationship.股东,Direction.BOTH)//沿着
                                     .breadthFirst()//广度优先
 
                                     .uniqueness(Uniqueness.NODE_LEVEL)//所有节点仅被访问一次

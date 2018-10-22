@@ -349,12 +349,12 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectByExampleUsingLimit" parameterType="edu.scu.corpmap.entity.mysql.NewsDetail" resultMap="BaseResultMap">
+  <select id="selectByExampleUsingLimit" parameterType="edu.scu.corpmap.entity.mysql.NewsDetail" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
     </if>
-    <include refid="Base_Column_List" />
+    id, title, preview_image, time,content
     from news_detail
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />

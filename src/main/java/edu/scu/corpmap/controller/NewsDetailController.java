@@ -13,6 +13,8 @@ import java.util.List;
 /**
  * Created by Vicent_Chen on 2018/7/26.
  */
+
+
 @Controller
 public class NewsDetailController {
     @Autowired

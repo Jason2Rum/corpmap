@@ -1,6 +1,9 @@
 package edu.scu.corpmap.result;
 
 import edu.scu.corpmap.entity.neo4j.Corp;
+import edu.scu.corpmap.entity.neo4j.IrgOperation;
+
+import java.util.List;
 
 public class BriefCorp extends CorpResult{
     private String type;        // 公司类型或者个体工商户
@@ -10,6 +13,15 @@ public class BriefCorp extends CorpResult{
     private String reg_date;    // 成立日期
     private String name;        // 公司名称
     private String Reg_capt;    // 注册资本
+    private List<IrgOperation> irgOpts;//经营异常信息
+
+    public List<IrgOperation> getIrgOpts() {
+        return irgOpts;
+    }
+
+    public void setIrgOpts(List<IrgOperation> irgOpts) {
+        this.irgOpts = irgOpts;
+    }
 
     public static BriefCorp constructFromCorp(Corp corp) {
         BriefCorp briefCorp = new BriefCorp();
@@ -20,6 +32,7 @@ public class BriefCorp extends CorpResult{
         briefCorp.state = corp.getState();
         briefCorp.reg_date = corp.getReg_date();
         briefCorp.name = corp.getName();
+        briefCorp.irgOpts = corp.getIrgOpts();
         return briefCorp;
     }
 
